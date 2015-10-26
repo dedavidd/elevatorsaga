@@ -174,8 +174,15 @@ var createWorldCreator = function() {
             }
             for(var users=world.users, i=0, len=users.length; i < len; ++i) {
                 var u = users[i];
+                var ualive = world.elapsedTime - u.spawnTimestamp;
+                world.maxWaitTime = Math.max(world.maxWaitTime, ualive);
+                if (ualive > 24.0) {
+                  u.setColor("#FF0000");
+                } else {
+                  var cvalue = Math.round(255.0 - ualive*10);
+                  u.setColor("rgb( 255 , " + cvalue + " ," + cvalue + ")"); 
+                }
                 u.update(dt);
-                world.maxWaitTime = Math.max(world.maxWaitTime, world.elapsedTime - u.spawnTimestamp);
             };
 
             for(var users=world.users, i=world.users.length-1; i>=0; i--) {

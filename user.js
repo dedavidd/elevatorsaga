@@ -7,6 +7,14 @@ function User(weight) {
     user.destinationFloor = 0;
     user.done = false;
     user.removeMe = false;
+    user.color = "#FFFFFF";
+    user.getColor = function() {
+      return this.color;
+    }
+    user.setColor = function(newColor) {
+      this.color = newColor;
+      this.trigger("new_display_state");
+    }
 };
 User.prototype = Object.create(Movable.prototype);
 
